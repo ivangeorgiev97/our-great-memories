@@ -24,7 +24,7 @@ export default {
     actions: {
         setMemories(context) {
             axios.get(`${baseApiUrl}/memories/getAll`).then((resp) => {
-                context.commit('SET_MEMORIES', resp.data.data)
+                context.commit('SET_MEMORIES', resp.data)
             })
         },
         addMemory(context, payload) {
@@ -35,7 +35,12 @@ export default {
             .then((resp) => {
                 console.log(resp)
             })
-        }
+        },
+        setCurrent (context, payload) {
+            axios.get(`${baseApiUrl}/memories/getById/${payload.id}`).then((resp) => {
+              context.commit('SET_CURRENT_MEMORY', resp.data.data)
+            })
+          },
     },
     getters: {
         getMemories(state) {

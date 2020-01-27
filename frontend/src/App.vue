@@ -7,3 +7,22 @@
     <router-view/>
   </div>
 </template>
+<style lang="scss">
+#app {
+  text-align: center;
+  color: darkgrey;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: darkgrey;
+
+    &.router-link-exact-active {
+      color: lightskyblue;
+    }
+  }
+}
+</style>

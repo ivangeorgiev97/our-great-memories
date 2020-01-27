@@ -1,17 +1,26 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome"/>
+    <router-link to="/addMemory"><b-button>Add Memory</b-button></router-link>
+    <memories-table class="mt-3" :items="memories" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import MemoriesTable from '@/components/MemoriesTable.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    MemoriesTable
+  },
+  created () {
+    this.$store.dispatch('memories/setMemories')
+  },
+  computed: {
+    memories () {
+      return this.$store.state.memories.memories
+    }
   }
 }
 </script>
