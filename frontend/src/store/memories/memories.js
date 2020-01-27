@@ -38,7 +38,7 @@ export default {
         },
         setCurrent (context, payload) {
             axios.get(`${baseApiUrl}/memories/getById/${payload.id}`).then((resp) => {
-              context.commit('SET_CURRENT', resp.data.data)
+              context.commit('SET_CURRENT_MEMORY', resp.data.data)
             })
           },
     },
