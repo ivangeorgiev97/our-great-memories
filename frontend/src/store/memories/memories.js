@@ -35,7 +35,12 @@ export default {
             .then((resp) => {
                 console.log(resp)
             })
-        }
+        },
+        setCurrent (context, payload) {
+            axios.get(`${baseApiUrl}/memories/getById/${payload.id}`).then((resp) => {
+              context.commit('SET_CURRENT', resp.data.data)
+            })
+          },
     },
     getters: {
         getMemories(state) {
