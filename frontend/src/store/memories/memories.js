@@ -40,7 +40,7 @@ export default {
             axios.get(`${baseApiUrl}/memories/getById/${payload.id}`).then((resp) => {
               context.commit('SET_CURRENT_MEMORY', resp.data.data)
             })
-          },
+        },
     },
     getters: {
         getMemories(state) {
