@@ -19,6 +19,9 @@ export default {
         },
         REMOVE_MEMORY(state, payload) {
             state.clients.splice(payload.id, 1)
+        },
+        EDIT_MEMORY() {
+
         }
     },
     actions: {
@@ -32,14 +35,26 @@ export default {
                 title: payload.title,
                 description: payload.description
             })
-            .then((resp) => {
-                console.log(resp)
+                .then((resp) => {
+                    console.log(resp)
+                })
+        },
+        setCurrent(context, payload) {
+            axios.get(`${baseApiUrl}/memories/getById/${payload.id}`).then((resp) => {
+                context.commit('SET_CURRENT_MEMORY', resp.data.data)
             })
         },
-        setCurrent (context, payload) {
-            axios.get(`${baseApiUrl}/memories/getById/${payload.id}`).then((resp) => {
-              context.commit('SET_CURRENT_MEMORY', resp.data.data)
+        editMemory(context,payload) {
+            axios.put(`${baseApiUrl}/memories/update/${payload.id}`).then((resp) => {
+                context.commit('EDIT_MEMORY', resp.data.data)
             })
+        },
+        deleteMemory(context, payload) {
+            axios.delete(`${baseApiUrl}/memories/delete/${payload.id}`).then((resp) => {
+                context.commit('REMOVE_MEMORY', resp.data.data)
+            })
+
+
         },
     },
     getters: {
