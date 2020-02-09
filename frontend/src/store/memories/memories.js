@@ -22,6 +22,9 @@ export default {
         },
         EDIT_MEMORY() {
 
+        },
+        DELETE_MEMORY(state) {
+            state.memories.delete
         }
     },
     actions: {

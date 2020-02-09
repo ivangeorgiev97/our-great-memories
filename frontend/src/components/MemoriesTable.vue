@@ -16,15 +16,48 @@
         value="Edit"
         @click="dtEditClick(props);"
       />
-      <input
-        slot="actions-delete"
-        slot-scope="props"
-        type="button"
-        class="btn btn-danger"
-        value="Danger"
-        @click="dtDeleteClick(props);"
-      />
+      
     </DataTable>
+
+    <table class="table table-border table-stripped">
+      <thead>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th>Actions</th>
+      </thead>
+      <tbody>
+        <tr v-for="item in items" :key="item.id">
+          <td>{{ item.id }}</td>
+        </tr>
+        <tr v-for="item in items" :key="item.title">
+          <td>{{ item.title }}</td>
+        </tr>
+
+        <tr v-for="item in items" :key="item.description">
+          <td>{{ item.description }}</td>
+        </tr>
+
+        <tr v-for="item in items" :key="item.createdat">
+          <td>{{ item.createdat }}</td>
+        </tr>
+
+        <tr v-for="item in items" :key="item.updatedat">
+          <td>{{ item.updatedat }}</td>
+        </tr> 
+         <tr>
+          <td>Edit</td>
+          <input type="button"><i class="fas fa-pencil"></i>
+      
+        </tr>
+         <tr>
+          <td>Delete</td>
+          <i class="far fa-trash-alt"></i>
+        </tr>
+      </tbody> 
+   </table>  
   </div>
 </template>
 
@@ -117,7 +150,6 @@ export default {
           label: "Updated",
           format: formatDate
         },
-        "__slot:actions",
         "__slot:actions"
       ],
       data: initialData.slice(0, 10),
