@@ -16,7 +16,6 @@
         value="Edit"
         @click="dtEditClick(props);"
       />
-      
     </DataTable>
 
     <table class="table table-border table-stripped">
@@ -26,38 +25,26 @@
         <th>Description</th>
         <th>Created at</th>
         <th>Updated at</th>
-        <th>Actions</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
           <td>{{ item.id }}</td>
-        </tr>
-        <tr v-for="item in items" :key="item.title">
           <td>{{ item.title }}</td>
-        </tr>
-
-        <tr v-for="item in items" :key="item.description">
           <td>{{ item.description }}</td>
-        </tr>
+          <td>{{ item.created_at }}</td>
+          <td>{{ item.updated_at }}</td>
+          <td>
+          <button class="btn btn-primary">Edit</button>
+          </td>
 
-        <tr v-for="item in items" :key="item.createdat">
-          <td>{{ item.createdat }}</td>
+          <td>
+            <button class="btn btn-danger">Delete</button>
+          </td>
         </tr>
-
-        <tr v-for="item in items" :key="item.updatedat">
-          <td>{{ item.updatedat }}</td>
-        </tr> 
-         <tr>
-          <td>Edit</td>
-          <input type="button"><i class="fas fa-pencil"></i>
-      
-        </tr>
-         <tr>
-          <td>Delete</td>
-          <i class="far fa-trash-alt"></i>
-        </tr>
-      </tbody> 
-   </table>  
+      </tbody>
+    </table>
   </div>
 </template>
 
