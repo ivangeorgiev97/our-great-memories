@@ -1,22 +1,6 @@
 <template>
   <div id="app">
-    <b-table striped hover :items="items" />
-    <DataTable
-      :header-fields="headerFields"
-      :data="data || []"
-      :css="datatableCss"
-      not-found-msg="Items not found"
-      trackBy="firstName"
-    >
-      <input
-        slot="actions"
-        slot-scope="props"
-        type="button"
-        class="btn btn-info"
-        value="Edit"
-        @click="dtEditClick(props);"
-      />
-    </DataTable>
+    <!-- <b-table striped hover :items="items" /> -->
 
     <table class="table table-border table-stripped">
       <thead>
@@ -36,11 +20,12 @@
           <td>{{ item.created_at }}</td>
           <td>{{ item.updated_at }}</td>
           <td>
-          <button class="btn btn-primary">Edit</button>
+            <router-link :to="`/editMemory/${item.id}`">
+              <b-button v-on:submit.prevent="updateItem" variant="success">Edit</b-button>
+            </router-link>
           </td>
-
           <td>
-            <button class="btn btn-danger">Delete</button>
+            <b-button variant="danger" v-on:click="deleteMemory( item.id )">Delete</b-button>
           </td>
         </tr>
       </tbody>
@@ -49,8 +34,6 @@
 </template>
 
 <script>
-import { DataTable } from "v-datatable-light";
-
 const addZero = value => ("0" + value).slice(-2);
 
 const formatDate = value => {
@@ -63,44 +46,6 @@ const formatDate = value => {
   return "";
 };
 
-const initialData = [
-  {
-    id: "1",
-    title: "Lucca",
-    description: "Lin",
-    created: new Date().getTime(),
-    updated: new Date().getTime()
-  },
-  {
-    id: "2",
-    title: "Zahid",
-    description: "Werner",
-    created: new Date().getTime(),
-    updated: new Date().getTime()
-  },
-  {
-    id: "3",
-    title: "Gabriel",
-    description: "Griffiths",
-    created: new Date().getTime(),
-    updated: new Date().getTime()
-  },
-  {
-    id: "4",
-    title: "Talha",
-    description: "Tucker",
-    created: new Date().getTime(),
-    updated: new Date().getTime()
-  },
-  {
-    id: "5",
-    title: "Aariz",
-    description: "Piper",
-    created: new Date().getTime(),
-    updated: new Date().getTime()
-  }
-];
-
 export default {
   props: {
     items: {
@@ -109,9 +54,7 @@ export default {
     }
   },
   name: "app",
-  components: {
-    DataTable
-  },
+  components: {},
   data: function() {
     return {
       headerFields: [
@@ -136,10 +79,8 @@ export default {
           name: "updated",
           label: "Updated",
           format: formatDate
-        },
-        "__slot:actions"
+        }
       ],
-      data: initialData.slice(0, 10),
       datatableCss: {
         table: "table table-bordered table-hover table-striped table-center",
         th: "header-item",
@@ -152,10 +93,12 @@ export default {
       }
     };
   },
-  methods: {
-    dtEditClick: props => alert("Click props:" + JSON.stringify(props)),
-    dtDeleteClick: props => alert("Click props:" + JSON.stringify(props))
-  }
+  methods: { 
+    deleteMemory(id) {
+      this.$store.dispatch('memories/deleteMemory', { id: id })
+    } 
+    
+    }
 };
 </script>
 <style scoped>

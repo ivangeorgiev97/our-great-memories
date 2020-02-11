@@ -18,13 +18,10 @@ export default {
             state.currentMemory = payload
         },
         REMOVE_MEMORY(state, payload) {
-            state.clients.splice(payload.id, 1)
+            state.memories.splice(payload.id, 1)
         },
         EDIT_MEMORY() {
 
-        },
-        DELETE_MEMORY(state) {
-            state.memories.delete
         }
     },
     actions: {
@@ -44,21 +41,29 @@ export default {
         },
         setCurrent(context, payload) {
             axios.get(`${baseApiUrl}/memories/getById/${payload.id}`).then((resp) => {
-                context.commit('SET_CURRENT_MEMORY', resp.data.data)
+                console.log(resp)
+                context.commit('SET_CURRENT_MEMORY', resp.data)
             })
         },
-        editMemory(context,payload) {
-            axios.put(`${baseApiUrl}/memories/update/${payload.id}`).then((resp) => {
-                context.commit('EDIT_MEMORY', resp.data.data)
+        editMemory(context, payload) {
+            let uri = `${baseApiUrl}/memories/update/${payload.id}`
+            axios.put(uri, {
+                id: payload.id,
+                title: payload.title,
+                description: payload.description
+            }
+            ).then((response) => {
+                console.log(response)
             })
         },
         deleteMemory(context, payload) {
-            axios.delete(`${baseApiUrl}/memories/delete/${payload.id}`).then((resp) => {
-                context.commit('REMOVE_MEMORY', resp.data.data)
-            })
-
-
-        },
+            axios.delete(`${baseApiUrl}/memories/delete/${payload.id}`)
+                .then((resp) => {
+                    console.log(resp)
+                    // context.commit('REMOVE_MEMORY', payload)
+                    context.dispatch('setMemories')
+                })
+        }
     },
     getters: {
         getMemories(state) {
