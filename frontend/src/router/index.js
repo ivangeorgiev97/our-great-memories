@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import AddMemory from "../views/AddMemory.vue"
+import EditMemory from "../views/EditMemory.vue"
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,11 @@ const routes = [
     path: '/addMemory',
     name: 'addMemory',
     component: AddMemory
+  },
+  {
+    path: '/editMemory/:id',
+    name: 'editMemory',
+    component: EditMemory
   }
 ]
 
